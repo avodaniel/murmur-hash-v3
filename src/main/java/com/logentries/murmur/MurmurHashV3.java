@@ -4,6 +4,12 @@ public class MurmurHashV3 {
     private static native long[] fastHash128(long[] out, byte[] data, int offset, int length, long seed);
     private static native long fastHash128_64(final String text, int from, int length,	long seed);
 
+    static {
+        if (!EmbeddedLibraryTools.LOADED_MURMUR) {
+            System.loadLibrary("murmur-hash-v3-java");
+        }
+    }
+
     public static long[] hash128(byte[] data, int offset, int length, long seed) {
         long[] out = new long[2];
         return fastHash128(out, data, offset, length, seed);

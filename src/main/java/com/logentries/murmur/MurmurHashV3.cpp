@@ -12,7 +12,7 @@ return (data[ i4 + 0] & 0xff) + ((data[ i4 + 1] & 0xff) << 8)
 #endif
 
 static jlong fmix(const jlong h) {
-    uint64_t uh = static_cast<uint64_t>(uh);
+    uint64_t uh = static_cast<uint64_t>(h);
     uh ^= uh >> 33;
     uh *= 0xff51afd7ed558ccdL;
     uh ^= uh >> 33;

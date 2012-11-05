@@ -27,8 +27,28 @@ add-so: $(OBJ)/libmurmur-hash-v3-java.so
 	mkdir -p $(NATIVES-TARGET)
 	cp $(OBJ)/libmurmur-hash-v3-java.so $(NATIVES-TARGET)
 
+test:
+	$(JAVA_HOME)/bin/javac MurmurHashV3.java
+	mkdir -p src/test/resources/ie/ucd/murmur
+	mv MurmurHashV3.class src/test/resources/ie/ucd/murmur
+	$(MVN) test
+
+#download-murmur: .download-murmur.stamp
+#
+#.download-murmur.stamp:
+#	mkdir -p src/test/resources
+#	wget 'https://github.com/trevorah/murmurhash-java/archive/master.tar.gz'
+#	tar xvf master.tar.gz
+#	touch .download-murmur.stamp
+#
+#compile-murmur: download-murmur
+#	$(JAVA_HOME)/bin/javac murmurhash-java-master/src/main/java/ie/ucd/murmur/MurmurHash.java
+#	mkdir -p src/test/resources/ie/ucd/murmur/
+#	mv murmurhash-java-master/src/main/java/ie/ucd/murmur/MurmurHash.class src/test/resources/ie/ucd/murmur/
+
 clean:
 	rm -fr obj
 	rm -fr target
 	rm -fr src/main/resources/NATIVE
+	rm -fr src/test/resources/ie
 	rm -f .*.stamp
