@@ -7,14 +7,14 @@ MVN=mvn
 NATIVES-TARGET=src/main/resources/NATIVE/$(shell bin/os-arch.sh)/$(shell bin/os-name.sh)
 
 all: build
-build: $(OBJ)/libre2-java.so class
+build: $(OBJ)/libmurmur-hash-v3-java.so class
 
 $(OBJ)/MurmurHashV3.o: $(addprefix src/main/java/com/logentries/murmur/, MurmurHashV3.cpp MurmurHashV3.h)
 	mkdir -p $(OBJ)
 	$(CXX) -O3 -g -fPIC -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -c src/main/java/com/logentries/murmur/MurmurHashV3.cpp -o $(OBJ)/MurmurHashV3.o
 
 $(OBJ)/libmurmur-hash-v3-java.so: $(OBJ)/MurmurHashV3.o
-	$(CXX) -shared -Wl,-soname,libmurmur-hash-v3-java.so -o $(OBJ)/libmurmurhash-hash-v3-java.so $(OBJ)/MurmurHashV3.o
+	$(CXX) -shared -Wl,-soname,libmurmur-hash-v3-java.so -o $(OBJ)/libmurmur-hash-v3-java.so $(OBJ)/MurmurHashV3.o
 
 class: build-class
 
