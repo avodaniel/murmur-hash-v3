@@ -4,7 +4,7 @@
   <groupId>com.logentries</groupId>
   <artifactId>libmurmur-hash-v3-java</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>libmurmur-hash-v3-java</name>
   <url>http://maven.apache.org</url>
   <dependencies>
