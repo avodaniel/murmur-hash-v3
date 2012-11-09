@@ -14,9 +14,9 @@ return (data[ i4 + 0] & 0xff) + ((data[ i4 + 1] & 0xff) << 8)
 static jlong fmix(const jlong h) {
     uint64_t uh = static_cast<uint64_t>(h);
     uh ^= uh >> 33;
-    uh *= 0xff51afd7ed558ccdL;
+    uh *= 0xff51afd7ed558ccdLL;
     uh ^= uh >> 33;
-    uh *= 0xc4ceb9fe1a85ec53L;
+    uh *= 0xc4ceb9fe1a85ec53LL;
     uh ^= uh >> 33;
     return static_cast<jlong>(uh);
 }
@@ -63,8 +63,8 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
     jlong h1 = seed;
     jlong h2 = seed;
 
-    const jlong c1 = 0x87c37b91114253d5L;
-    const jlong c2 = 0x4cf5ad432745937fL;
+    const jlong c1 = 0x87c37b91114253d5LL;
+    const jlong c2 = 0x4cf5ad432745937fLL;
 
     // Body
 
@@ -79,7 +79,7 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
 
         h1 = rotl64(h1, 27);
         h1 += h2;
-        h1 = h1*5 + 0x52dce729;
+        h1 = h1*5 + 0x52dce729LL;
 
         k2 *= c2;
         k2 = rotl64(k2, 33);
@@ -88,7 +88,7 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
 
         h2 = rotl64(h2, 31);
         h2 += h1;
-        h2 = h2*5 + 0x38495ab5;
+        h2 = h2*5 + 0x38495ab5LL;
     }
 
     // Tail
@@ -115,7 +115,6 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
         k2 = rotl64(k2, 33);
         k2 *= c1;
         h2 ^= k2;
-
     case 8:
         k1 ^= ( static_cast<jlong>(data_elems[tail + 7]) ) << 56;
     case 7:
@@ -168,8 +167,8 @@ JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
     jlong h1 = seed;
     jlong h2 = seed;
 
-    const jlong c1 = 0x87c37b91114253d5L;
-    const jlong c2 = 0x4cf5ad432745937fL;
+    const jlong c1 = 0x87c37b91114253d5LL;
+    const jlong c2 = 0x4cf5ad432745937fLL;
 
     // Body
 
@@ -184,7 +183,7 @@ JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
 
         h1 = rotl64(h1, 27);
         h1 += h2;
-        h1 = h1 * 5 + 0x52dce729;
+        h1 = h1 * 5 + 0x52dce729LL;
 
         k2 *= c2;
         k2 = rotl64( k2, 33);
@@ -193,7 +192,7 @@ JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
 
         h2 = rotl64( h2, 31);
         h2 += h1;
-        h2 = h2 * 5 + 0x38495ab5;
+        h2 = h2 * 5 + 0x38495ab5LL;
     }
 
     // Tail
@@ -209,6 +208,11 @@ JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
     case 6:
         k2 ^= (static_cast<jlong>( text_chars[tail + 5] )) << 16;
     case 5:
+        k2 ^= (static_cast<jlong>(text_chars[tail + 4] )) << 0;
+        k2 *= c2;
+        k2 = rotl64(k2, 33);
+        k2 *= c1;
+        h2 ^= k2;
     case 4:
         k1 ^= (static_cast<jlong>( text_chars[tail + 3] )) << 48;
     case 3:

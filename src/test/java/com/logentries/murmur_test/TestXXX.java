@@ -58,4 +58,17 @@ public class TestXXX {
               assertEquals(hash1, hash2);
          }
     }
+
+    @Test
+    public void TestRandBytes() {
+        GenString gs = new GenString(mAlphabet, 7);
+         for (int i = 0; i < 25; ++i) {
+              final String str = gs.next();
+              final byte bs[] = str.getBytes();
+              final long[] hashes1 = com.logentries.murmur.MurmurHashV3.hash128(bs, bs.length);
+              final long[] hashes2 = ie.ucd.murmur.MurmurHashV3.hash128(bs, bs.length);
+              System.err.println("Str.   s=" + str + "; hash1=" + Arrays.toString(hashes1) + "; hash2=" + Arrays.toString(hashes2));
+              assertTrue(Arrays.equals(hashes1, hashes2));
+         }
+    }
 }
