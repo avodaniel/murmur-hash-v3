@@ -1,4 +1,4 @@
-package com.logentries.re2_test;
+package com.logentries.murmur_test;
 
 import org.junit.Test;
 import java.util.Arrays;

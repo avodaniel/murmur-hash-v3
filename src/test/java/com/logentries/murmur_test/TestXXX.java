@@ -1,7 +1,8 @@
-package com.logentries.re2_test;
+package com.logentries.murmur_test;
 
 import org.junit.Test;
 import java.util.Arrays;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -42,5 +43,19 @@ public class TestXXX {
 
             assertTrue(Arrays.equals(hashes1, hashes2));
         }
+    }
+
+    private List<String> mAlphabet = Arrays.asList("aaa", "b", "ccc", "uvw", "-", "$", "Příliš", "žluťoučký", "kůň", "úpěl", "ďábelské", "ódy");
+
+    @Test
+    public void TestRandStrings() {
+        GenString gs = new GenString(mAlphabet, 7);
+         for (int i = 0; i < 25; ++i) {
+              final String str = gs.next();
+              final long hash1 = com.logentries.murmur.MurmurHashV3.hash128_64(str);
+              final long hash2 = ie.ucd.murmur.MurmurHashV3.hash128_64(str);
+              System.err.println("Str.   s=" + str + "; hash1=" + hash1 + "; hash2=" + hash2);
+              assertEquals(hash1, hash2);
+         }
     }
 }
