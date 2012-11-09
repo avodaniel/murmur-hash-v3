@@ -1,6 +1,6 @@
 package com.logentries.murmur;
 
-public class MurmurHashV3 {
+public final class MurmurHashV3 {
     private static native long[] fastHash128(long[] out, byte[] data, int offset, int length, long seed);
     private static native long fastHash128_64(final String text, int from, int length,	long seed);
 
@@ -26,7 +26,7 @@ public class MurmurHashV3 {
       * @param length length of the array to hash
       * @return 128 bit hash of the given string
       */
-    public static long[] hash128( final byte[] data, int length) {
+    public static long[] hash128(final byte[] data, int length) {
         return hash128(data, 0, length, 0x9ee73d188796670eL);
     }
 
@@ -36,7 +36,7 @@ public class MurmurHashV3 {
        * @param text string to hash
        * @return 128 bit hash of the given string
        */
-    public static long hash128_64( final String text) {
+    public static long hash128_64(final String text) {
         return hash128_64(text, 0, text.length(), 0x9ee73d188796670eL);
     }
 

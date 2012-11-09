@@ -161,7 +161,7 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
 JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
   (JNIEnv *env, jclass cls, jstring text, jint from, jint length, jlong seed) {
 
-    const jchar *text_chars = env->GetStringChars(text, NULL);
+    const jchar *text_chars = env->GetStringCritical(text, NULL);
 
     const jint nblocks = length*2/16; // Process as 128-bit blocks. //FIXME: why not .../8 ?
 
@@ -237,7 +237,7 @@ JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
     h1 += h2;
     h2 += h1;
 
-    env->ReleaseStringChars(text, text_chars);
+    env->ReleaseStringCritical(text, text_chars);
 
     return h1 ^ h2;
 }
