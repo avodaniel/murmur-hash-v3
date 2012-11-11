@@ -157,10 +157,13 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
     return out;
 }
 
-JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
-  (JNIEnv *env, jclass cls, jstring text, jint from, jint length, jlong seed) {
-
+static jlong fast_hash128_64(JNIEnv *env, jstring text, jint from, jint length, jlong seed) {
     const jchar *text_chars = env->GetStringCritical(text, NULL);
+
+//    jchar text_chars[from + length];
+//    for (jint i = 0; i < from + length; ++i) {
+//        text_chars[i] = 2*i - 13;
+//    }
 
     const jint nblocks = length*2/16; // Process as 128-bit blocks. //FIXME: why not .../8 ?
 
@@ -242,6 +245,20 @@ JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
     h2 += h1;
 
     env->ReleaseStringCritical(text, text_chars);
-
     return h1 ^ h2;
+}
+
+JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_hash128_164__Ljava_lang_String_2IIJ
+  (JNIEnv *env, jclass cls, jstring text, jint from, jint length, jlong seed) {
+    return fast_hash128_64(env, text, from, length, seed);
+}
+
+JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_hash128_164__Ljava_lang_String_2
+  (JNIEnv *env, jclass cls, jstring text) {
+    return fast_hash128_64(env, text, 0, env->GetStringLength(text), 0x9ee73d188796670eLL);
+}
+
+JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_hash128_164__Ljava_lang_String_2J
+  (JNIEnv *env, jclass cls, jstring text, jlong salt) {
+    return fast_hash128_64(env, text, 0, env->GetStringLength(text), salt);
 }

@@ -52,3 +52,4 @@ clean:
 	rm -fr src/main/resources/NATIVE
 	rm -fr src/test/resources/ie
 	rm -f .*.stamp
+	rm -f src/main/java/com/logentries/murmur/MurmurHashV3.class

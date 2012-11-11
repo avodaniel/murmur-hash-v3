@@ -17,11 +17,27 @@ JNIEXPORT jlongArray JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128
 
 /*
  * Class:     com_logentries_murmur_MurmurHashV3
- * Method:    fastHash128_64
+ * Method:    hash128_64
  * Signature: (Ljava/lang/String;IIJ)J
  */
-JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_fastHash128_164
+JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_hash128_164__Ljava_lang_String_2IIJ
   (JNIEnv *, jclass, jstring, jint, jint, jlong);
+
+/*
+ * Class:     com_logentries_murmur_MurmurHashV3
+ * Method:    hash128_64
+ * Signature: (Ljava/lang/String;)J
+ */
+JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_hash128_164__Ljava_lang_String_2
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_logentries_murmur_MurmurHashV3
+ * Method:    hash128_64
+ * Signature: (Ljava/lang/String;J)J
+ */
+JNIEXPORT jlong JNICALL Java_com_logentries_murmur_MurmurHashV3_hash128_164__Ljava_lang_String_2J
+  (JNIEnv *, jclass, jstring, jlong);
 
 #ifdef __cplusplus
 }
